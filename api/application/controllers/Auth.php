@@ -6,7 +6,9 @@ require APPPATH . '/libraries/REST_Controller.php';
 
 class Auth extends REST_Controller
 {
-    
+    # Signin Endpoint
+    # Parameter ( Username, Password)
+    # Method POST
     public function signin_post()
     {
         $this->load->model('model_user','user');
@@ -98,7 +100,9 @@ class Auth extends REST_Controller
         }
     }
 
-    
+    # Password Change
+    # Parameter ( Token, Username, Oldpassword, Newpassword)
+    # Method POST
     public function change_post()
     {
         $this->load->model('model_user', 'user');

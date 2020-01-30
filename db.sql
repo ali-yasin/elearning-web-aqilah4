@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2020 at 05:50 PM
+-- Generation Time: Jan 30, 2020 at 07:08 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.32
 
@@ -38,6 +38,17 @@ CREATE TABLE `keys` (
   `ip_addresses` text DEFAULT NULL,
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `keys`
+--
+DELIMITER $$
+CREATE TRIGGER `hapus_admin` AFTER DELETE ON `keys` FOR EACH ROW BEGIN
+DELETE FROM m_siswa WHERE m_siswa.id_siswa = OLD.id;
+DELETE FROM m_guru WHERE m_guru.id_guru = OLD.id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -103,15 +114,17 @@ DELIMITER ;
 CREATE TABLE `m_mapel` (
   `id` int(6) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  `Thumbnail` varchar(100) NOT NULL
+  `thumnail` text NOT NULL,
+  `thumbnail` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `m_mapel`
 --
 
-INSERT INTO `m_mapel` (`id`, `nama`, `Thumbnail`) VALUES
-(1, 'Pemrograman Dasar', '');
+INSERT INTO `m_mapel` (`id`, `nama`, `thumnail`, `thumbnail`) VALUES
+(5, 'contoh', 'https://image.flaticon.com/icons/svg/174/174855.svg', ''),
+(6, 'coba', 'https://image.flaticon.com/icons/svg/174/174855.svg', 'https://image.flaticon.com/icons/svg/174/174855.svg');
 
 --
 -- Triggers `m_mapel`
@@ -192,13 +205,6 @@ CREATE TABLE `tr_guru_mapel` (
   `id_mapel` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tr_guru_mapel`
---
-
-INSERT INTO `tr_guru_mapel` (`id`, `id_guru`, `id_mapel`) VALUES
-(29, 12, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -217,8 +223,16 @@ CREATE TABLE `tr_guru_tes` (
   `tgl_mulai` datetime NOT NULL,
   `terlambat` datetime NOT NULL,
   `token` varchar(5) NOT NULL,
-  `Thumbnail` varchar(100) NOT NULL
+  `thumnail` text NOT NULL,
+  `thumbnail` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tr_guru_tes`
+--
+
+INSERT INTO `tr_guru_tes` (`id`, `id_guru`, `id_mapel`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `detil_jenis`, `tgl_mulai`, `terlambat`, `token`, `thumnail`, `thumbnail`) VALUES
+(2, 0, 0, '', 0, 0, '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'https://image.flaticon.com/icons/svg/174/174855.svg', 'https://image.flaticon.com/icons/svg/174/174855.svg');
 
 -- --------------------------------------------------------
 
@@ -335,7 +349,7 @@ ALTER TABLE `m_guru`
 -- AUTO_INCREMENT for table `m_mapel`
 --
 ALTER TABLE `m_mapel`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `m_siswa`
@@ -359,7 +373,7 @@ ALTER TABLE `tr_guru_mapel`
 -- AUTO_INCREMENT for table `tr_guru_tes`
 --
 ALTER TABLE `tr_guru_tes`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tr_ikut_ujian`

@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '192.168.42.16/Elearning/Elearning-Mobile-API-master/';
+$config['base_url'] = 'http://suryanusantara.pdef.space/api/';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = '192.168.42.16/Elearning/Elearning-Mobile-API-master/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'Auth.php';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
